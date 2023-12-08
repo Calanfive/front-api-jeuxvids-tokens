@@ -17,14 +17,14 @@ export default function Connexion() {
 
     const handleConnexion = useCallback( async () => {
         // Lancez une requête POST vers l'API avec les données de connexion
-        const response = await fetch ("http://localhost:1992/api/auth/localS", {
+        const response = await fetch ("http://localhost:2000/api/auth/local", {
             method: "POST",
             headers: {
                 "content-Type": "application/json",
             },
             body: JSON.stringify({
-                "identifier": "username",
-                "password": "password"
+                "identifier": login,
+                "password": password
             })
         });
         const data = await response.json();
