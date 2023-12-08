@@ -1,8 +1,11 @@
 import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Connexion() {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate();
 
     const changeLogin = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setLogin(event.target.value)
@@ -12,15 +15,35 @@ export default function Connexion() {
         setPassword(event.target.value)
     }, [])
 
-    const handleConnexion = useCallback(() => {
+    const handleConnexion = useCallback( async () => {
         // Lancez une requête POST vers l'API avec les données de connexion
+        const response = await fetch ("http://localhost:1992/api/auth/localS", {
+            method: "POST",
+            headers: {
+                "content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "identifier": "username",
+                "password": "password"
+            })
+        });
+        const data = await response.json();
+        console.log(data);
+        if(data.user){
+            navigate("/home");
+            }
+            else {
+              setLogin("")
+              setPassword("")
+            }
+        
 
         // Si la connexion est réussie,  stockez le token dans le localStorage
         // Et redirigez l'utilisateur vers la page d'accueil
 
         // Si la connexion est échouée, affichez un message d'erreur
         
-    }, [login, password])
+    }, [login, password, navigate])
     return (
         <div>
             <h1>Connexion</h1>
