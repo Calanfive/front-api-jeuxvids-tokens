@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 export default function Connexion() {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const [showErrorMessage, setShowErrorMessage] = useState('')
     const navigate = useNavigate();
+    
 
     const changeLogin = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setLogin(event.target.value)
@@ -31,12 +33,13 @@ export default function Connexion() {
         console.log(data);
         if(data.user){
             navigate("/home");
+            localStorage.setItem(JSON.stringify('user.data'), JSON.stringify('data.jwt'));
             }
             else {
               setLogin("")
               setPassword("")
+              setShowErrorMessage("erreur 400, mdp ou email incorrect")
             }
-        
 
         // Si la connexion est réussie,  stockez le token dans le localStorage
         // Et redirigez l'utilisateur vers la page d'accueil
@@ -55,7 +58,8 @@ export default function Connexion() {
                 <label htmlFor="password">Entrez votre mot de passe : </label>
                 <input type="password" name="password" value={password} onChange={changePassword} />
             </div>
-            <button onClick={handleConnexion}>Connexion</button>
+            <button onClick={handleConnexion} >Connexion</button>
+            <p>{showErrorMessage}</p>
         </div>
     );
 }
