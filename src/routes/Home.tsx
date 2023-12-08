@@ -6,14 +6,33 @@ export default function Home() {
 
     useEffect(() => {
         const getAllGames = async () => {
+            let value = localStorage.getItem("userdata")
             // Récupérez les jeux gratuits avec la route GET /api/free-games
+            const response = await fetch("http://localhost:2000/api/free-games")
+            const dataFree = await response.json()
             // Récupérez les jeux officiels avec la route /api/games/official
+            console.log("log", value);
             
+            const response2 = await fetch("http://localhost:2000/api/official-games", {
+                headers : {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${value}`
+                }
+            })
+
+            const dataOff = await response2.json()
+
+            console.log("jeux gratuits", dataFree);
+            console.log("jeux payants", dataOff);
             // stockez-les dans le state freeGames
+            setFreeGames(dataFree)
             // stockez-les dans le state officialGames
+            setOfficialGames(dataOff)
         }
         getAllGames()
     }, [])
+
+
 
     return (
         <div>
@@ -22,15 +41,17 @@ export default function Home() {
             <div className="free-games">
                 <h2>Jeux gratuits</h2>
                 <div className="free-games-list-content">
-                    {/* Affichez les jeux gratuits ici */}
+                    {freeGames.map((game: any) => (
+                        <div className="full" key={game.id}>
+                            <div className="Name">{game.nom}</div>
+                            <div className="Type">{game.description}</div>
+                        </div>
+                    ))}
                 </div>
             </div>
-
             <div className="official-games">
                 <h2>Jeux officiels</h2>
-                <div className="official-games-list-content">
-                    {/* Affichez les jeux officiels ici */}
-                </div>
+                {officialGames}
             </div>
         </div>
     )

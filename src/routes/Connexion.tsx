@@ -33,7 +33,7 @@ export default function Connexion() {
         console.log(data);
         if(data.user){
             navigate("/home");
-            localStorage.setItem(JSON.stringify('user.data'), JSON.stringify('data.jwt'));
+            localStorage.setItem("userdata", (data.jwt));
             }
             else {
               setLogin("")
