@@ -1,8 +1,27 @@
 import { useEffect, useState } from "react"
 
+
+interface IfreeGames {
+    createdAt: string,
+    description: string,
+    id: number,
+    image: string,
+    nom: string,
+    updatedAt: string
+}
+interface IOfficialGames {
+    createdAt: string,
+    description: string,
+    id: number,
+    image: string,
+    nom: string,
+    prix: number,
+    updatedAt: string
+}
+
 export default function Home() {
-    const [freeGames, setFreeGames] = useState([])
-    const [officialGames, setOfficialGames] = useState([])
+    const [freeGames, setFreeGames] = useState<IfreeGames[]>([])
+    const [officialGames, setOfficialGames] = useState<IOfficialGames[]>([])
 
     useEffect(() => {
         const getAllGames = async () => {
@@ -51,7 +70,12 @@ export default function Home() {
             </div>
             <div className="official-games">
                 <h2>Jeux officiels</h2>
-                {officialGames}
+                {officialGames.map((game: any) => (
+                        <div className="full" key={game.id}>
+                            <div className="Name">{game.nom}</div>
+                            <div className="Type">{game.description}</div>
+                        </div>
+                    ))}
             </div>
         </div>
     )

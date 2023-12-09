@@ -40,13 +40,14 @@ export default function Connexion() {
               setPassword("")
               setShowErrorMessage("erreur 400, mdp ou email incorrect")
             }
-
-        // Si la connexion est réussie,  stockez le token dans le localStorage
-        // Et redirigez l'utilisateur vers la page d'accueil
-
-        // Si la connexion est échouée, affichez un message d'erreur
         
     }, [login, password, navigate])
+
+    const handleCreateId = useCallback( async () => {
+        navigate("/creationCompte");
+        
+    }, [navigate])
+
     return (
         <div>
             <h1>Connexion</h1>
@@ -58,8 +59,13 @@ export default function Connexion() {
                 <label htmlFor="password">Entrez votre mot de passe : </label>
                 <input type="password" name="password" value={password} onChange={changePassword} />
             </div>
-            <button onClick={handleConnexion} >Connexion</button>
-            <p>{showErrorMessage}</p>
+            <div>
+                <button onClick={handleConnexion} >Connexion</button>
+                <p>{showErrorMessage}</p>                
+            </div>
+            <div>
+                <button onClick={handleCreateId} >Créez un compte</button>
+            </div>
         </div>
     );
 }
