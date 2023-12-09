@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IfreeGames {
     createdAt: string,
@@ -22,6 +22,7 @@ interface IOfficialGames {
 export default function Home() {
     const [freeGames, setFreeGames] = useState<IfreeGames[]>([])
     const [officialGames, setOfficialGames] = useState<IOfficialGames[]>([])
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getAllGames = async () => {
