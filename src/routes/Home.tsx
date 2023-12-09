@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-
+import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
 
 interface IfreeGames {
     createdAt: string,
@@ -49,9 +49,13 @@ export default function Home() {
             setOfficialGames(dataOff)
         }
         getAllGames()
+
     }, [])
-
-
+    
+    const handleModifPage = useCallback( async () => {
+        navigate("/modif-mdp");
+        
+    }, [navigate])
 
     return (
         <div>
@@ -76,6 +80,9 @@ export default function Home() {
                             <div className="Type">{game.description}</div>
                         </div>
                     ))}
+            </div>
+            <div className="modif-mdp">
+                <button onClick={handleModifPage}>Modifiez mot de passe</button>
             </div>
         </div>
     )

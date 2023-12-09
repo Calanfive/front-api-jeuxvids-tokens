@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './routes/Home'
 import Connexion from './routes/Connexion'
 import CreationCompte from './routes/CreationCompte'
+import Modifmdp from './routes/Modifmdp'
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: '/creation-compte',
     element: <CreationCompte />
+  },
+  {
+    path: '/modif-mdp',
+    element: <Modifmdp />
   } 
 ])
 
