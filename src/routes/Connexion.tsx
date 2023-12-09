@@ -44,7 +44,7 @@ export default function Connexion() {
     }, [login, password, navigate])
 
     const handleCreateId = useCallback( async () => {
-        navigate("/creationCompte");
+        navigate("/creation-compte");
         
     }, [navigate])
 
